@@ -1,0 +1,28 @@
+{
+  "name": "deploy-to-git",
+  "version": "0.0.2",
+  "description": "Automatically deploy build artifacts to a Git repository",
+  "bin": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/finom/deploy-to-git.git"
+  },
+  "keywords": [
+    "CI",
+    "deploy",
+    "git",
+    "github",
+    "gitlab",
+    "bitbucket",
+    "artifacts"
+  ],
+  "author": "Andrey Gubanov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/finom/deploy-to-git/issues"
+  },
+  "homepage": "https://github.com/finom/deploy-to-git#readme"
+}
