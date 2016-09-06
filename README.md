@@ -44,6 +44,6 @@ In my case I'd like to get bundled JavaScript files of a library inside ``gh-pag
 
 When I run ``npm run deploy`` the tool does the following:
 
-1. Clone the repository to ``bundle`` folder.
+1. Clone the repository to ``bundle`` folder (it needs to be listed at .gitignore).
 2. Run script ``npm run bundle`` which in my case replaces older bundled JavaScript files inside  ``bundle`` folder by new ones.
 3. Commit and push changes.
