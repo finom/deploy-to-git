@@ -1,4 +1,4 @@
-# deploy-to-git
+# deploy-to-git [![npm version](https://badge.fury.io/js/deploy-to-git.svg)](https://badge.fury.io/js/deploy-to-git)
 Automatically deploy build artifacts to a Git repository. The tool works awesome with [semantic-release](https://github.com/semantic-release/semantic-release) or manual releasing and any CI service.
 
 ```
