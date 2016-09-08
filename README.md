@@ -33,7 +33,7 @@ In my case I'd like to get bundled JavaScript files of a library inside ``gh-pag
       "branch": "gh-pages",
       "folder": "bundle",
       "script": "npm run bundle",
-      "commit": "$npm_package_version",
+      "commit": "Releasing $npm_package_version",
       "user": {
           "email": "andrey.a.gubanov@gmail.com",
           "name": "Andrey Gubanov (his digital copy)"
