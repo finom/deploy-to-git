@@ -5,7 +5,7 @@ Automatically deploy build artifacts to a Git repository. The tool works awesome
 npm install --save-dev deploy-to-git
 ```
 
-## Usage
+## Configuring
 
 Configuration for the tool needs to be placed at ``config.deployToGit`` object inside  package.json. All fields are required.
 
@@ -18,32 +18,61 @@ Configuration for the tool needs to be placed at ``config.deployToGit`` object i
 
 Substrings started with ``$`` are replaced by corresponding environment variables.
 
-## Real world case
+## Getting started
 
-In my case I'd like to get bundled JavaScript files of a library inside ``gh-pages`` branch instead of ``master`` and get rid of meaningless "rebuild" commits. I use semantic-release and Travis CI for automatic releasing.
+Let's say you want to deploy artifacts to branch called ``artifacts``. Let's say your build tool (eg. webpack) compiles the artifacts to ``build`` folder via NPM script ``build-my-app``. You'll need:
+
+1. Create ``artifacts`` branch manually and remove all files from it (if you create the branch copying main branch contents). Push it to remote repository.
+2. Add README or whatever you want to have at this branch.
+3. Add ``build`` folder to ``.gitignore`` of your main branch.
+4. Configure ``deploy-to-git``
 
 ```js
 "scipts": {
-  "bundle": "webpack",
-  "deploy": "deploy-to-git"
+  "deploy": "deploy-to-git",
+  "build-my-app": "a-build-script"
 }
 "config": {
   "deployToGit": {
-      "repository": "https://$GH_TOKEN@github.com/finom/my-awesome-library.git",
-      "branch": "gh-pages",
-      "folder": "bundle",
-      "script": "npm run bundle",
-      "commit": "$npm_package_version",
+      "repository": "git@github.com:owner/your-repo.git",
+      "branch": "artifacts",
+      "folder": "build",
+      "script": "npm run build-my-app",
+      "commit": "Automatic commit text",
       "user": {
-          "email": "andrey.a.gubanov@gmail.com",
-          "name": "Andrey Gubanov (his digital copy)"
+          "email": "you@example.com",
+          "name": "Your name"
       }
   }
 }
 ```
 
-When I run ``npm run deploy`` the tool does the following:
+That's it. When you run ``npm run deploy`` the tool does the following:
 
-1. Clone the repository to ``bundle`` folder (it needs to be listed at .gitignore).
-2. Run script ``npm run bundle`` which in my case replaces older bundled JavaScript files inside  ``bundle`` folder by new ones.
+1. Clone the repository to ``build`` folder.
+2. Run script ``npm run build-my-app`` which creates/replaces files at ``build`` folder.
 3. Commit and push changes.
+
+Tip: remove ``build`` folder before ``deploy-to-git`` run.
+
+
+## Travis CI
+
+To run it on Travis CI just use the following format of ``repository`` field: ``https://$GH_TOKEN@github.com/owner/your-repo.git``.
+
+## semantic-release
+
+There is nothing specific. Just add ``deploy-to-github`` to ``semantic-release`` script.
+
+```
+"semantic-release": "semantic-release pre && deploy-to-git && npm publish && semantic-release post",
+```
+
+Tip: You can use a new version in commit message:
+```
+"commit": "Publising $npm_package_version",
+```
+
+## Real example
+
+Real example lives [there](https://github.com/finom/github-embed). It compiled the application via webpack to ``bundle`` folder and pushes to [gh-pages branch](https://github.com/finom/github-embed/tree/gh-pages).
