@@ -66,7 +66,8 @@ To run it on Travis CI just use the following format of ``repository`` field: ``
 Just add ``deploy-to-github`` to ``semantic-release`` script.
 
 ```
-"semantic-release": "semantic-release pre && deploy-to-git && npm publish && semantic-release post",
+"deploy": "deploy-to-git",
+"semantic-release": "semantic-release pre && npm run deploy && npm publish && semantic-release post",
 ```
 
 Tip: You can use a release version in a commit message:
