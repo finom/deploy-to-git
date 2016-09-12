@@ -1,5 +1,5 @@
 # deploy-to-git [![npm version](https://badge.fury.io/js/deploy-to-git.svg)](https://badge.fury.io/js/deploy-to-git)
-Automatically or manually deploy build artifacts to a Git repository. The tool works awesome with [semantic-release](https://github.com/semantic-release/semantic-release) or manual releasing and any CI service.
+Automatically or manually deploy build artifacts to a Git repository. The tool works awesome with [semantic-release](https://github.com/semantic-release/semantic-release) and any CI service.
 
 ```
 npm install --save-dev deploy-to-git
@@ -7,7 +7,7 @@ npm install --save-dev deploy-to-git
 
 ## Configuring
 
-Configuration for the tool needs to be placed at ``config.deployToGit`` object inside  package.json. All fields are required.
+Configuration for the tool needs to be placed at ``config.deployToGit`` object inside  ``package.json``. All fields are required.
 
 - ``repository`` - a repository
 - ``branch`` - a branch of the repository where you want to push the artifacts
@@ -20,9 +20,9 @@ Substrings started with ``$`` are replaced by corresponding environment variable
 
 ## Getting started
 
-Let's say you want to deploy artifacts to branch called ``artifacts``. Let's say your build tool (eg. webpack) compiles the artifacts to ``build`` folder via NPM script ``build-my-app``. You'll need:
+Let's say you want to deploy artifacts to branch called ``artifacts``. Let's say used build tool compiles the artifacts to ``build`` folder via NPM script called ``build-my-app``. You'll need:
 
-1. Create ``artifacts`` branch manually and remove all files from it (if you create the branch copying main branch contents). Push it to remote repository.
+1. Create ``artifacts`` branch manually and remove all files from it (because you probably create the branch copying main branch contents). Push it to remote repository.
 2. Add README or whatever you want to have at this branch.
 3. Add ``build`` folder to ``.gitignore`` of your main branch.
 4. Configure ``deploy-to-git``
@@ -55,6 +55,7 @@ That's it. When you run ``npm run deploy`` the tool does the following:
 
 Tip: remove ``build`` folder before ``deploy-to-git`` run.
 
+For more info check out [index.js](https://github.com/finom/deploy-to-git/blob/master/index.js).
 
 ## Travis CI
 
@@ -62,17 +63,17 @@ To run it on Travis CI just use the following format of ``repository`` field: ``
 
 ## semantic-release
 
-There is nothing specific. Just add ``deploy-to-github`` to ``semantic-release`` script.
+Just add ``deploy-to-github`` to ``semantic-release`` script.
 
 ```
 "semantic-release": "semantic-release pre && deploy-to-git && npm publish && semantic-release post",
 ```
 
-Tip: You can use a new version in commit message:
+Tip: You can use a release version in a commit message:
 ```
 "commit": "Publising $npm_package_version",
 ```
 
 ## Real example
 
-Real example lives [there](https://github.com/finom/github-embed). It compiled the application via webpack to ``bundle`` folder and pushes to [gh-pages branch](https://github.com/finom/github-embed/tree/gh-pages).
+Real example can be found [there](https://github.com/finom/github-embed). The application is compiled via webpack to ``bundle`` folder and pushed to [gh-pages branch](https://github.com/finom/github-embed/tree/gh-pages).
