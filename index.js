@@ -24,8 +24,8 @@ for (const field of fields) {
     });
 }
 
-console.log('Deploying to git...');
-console.log(`Cloning to ${config.folder}...`);
+console.log('Starting deploy to Git...');
+console.log(`Cloning the repository to "${config.folder}" folder...`);
 try {
     execSync(`git clone -b ${config.branch} ${config.repository} ${config.folder} 2>&1`, { cwd });
 } catch (e) {
@@ -33,7 +33,7 @@ try {
 }
 
 
-console.log(`Starting script ${config.script}...`);
+console.log(`Starting script "${config.script}"...`);
 console.log(execSync(`${config.script}`, { cwd }).toString('utf-8'));
 
 console.log('Configuring and committing...');
