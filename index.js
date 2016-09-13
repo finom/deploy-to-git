@@ -25,13 +25,23 @@ for(const field of fields) {
     });
 }
 
+console.log('Deploying to git...');
+console.log(`Cloning to ${config.folder}...`);
+execSync(`git clone -b ${config.branch} ${config.repository} ${config.folder} 2>&1`, { cwd });
+
+console.log(`Starting script ${config.script}...`);
+console.log(execSync(`${config.script}`, { cwd }).toString('utf-8'));
+
+console.log(`Configuring and committing...`);
 execSync(`
-    git clone -b ${config.branch} ${config.repository} ${config.folder} &&
-    ${config.script} &&
     cd ${config.folder} &&
     git config user.email "${config.user_email}" &&
     git config user.name "${config.user_name}" &&
     git add . &&
-    git commit --allow-empty -m "${config.commit}" &&
-    git push ${config.repository} ${config.branch}
+    git commit --allow-empty -m "${config.commit}" 2>&1
 `, { cwd });
+
+console.log(`Pushing...`);
+execSync(`git push ${config.repository} ${config.branch}`, { cwd });
+
+console.log('Deploying to git is finished.');
