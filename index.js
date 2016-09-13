@@ -28,7 +28,7 @@ console.log('Deploying to git...');
 console.log(`Cloning to ${config.folder}...`);
 try {
     execSync(`git clone -b ${config.branch} ${config.repository} ${config.folder} 2>&1`, { cwd });
-} catch(e) {
+} catch (e) {
     throw Error('Failed to clone.');
 }
 
@@ -51,8 +51,8 @@ try {
         cd ${config.folder} &&
         git push ${config.repository} ${config.branch} 2>&1
     `, { cwd });
-} catch(e) {
-    throw Error('Failed to push.')
+} catch (e) {
+    throw Error('Failed to push.');
 }
 
 
