@@ -26,7 +26,12 @@ for (const field of fields) {
 
 console.log('Deploying to git...');
 console.log(`Cloning to ${config.folder}...`);
-execSync(`git clone -b ${config.branch} ${config.repository} ${config.folder} 2>&1`, { cwd });
+try {
+    execSync(`git clone -b ${config.branch} ${config.repository} ${config.folder} 2>&1`, { cwd });
+} catch(e) {
+    throw Error('Failed to clone.');
+}
+
 
 console.log(`Starting script ${config.script}...`);
 console.log(execSync(`${config.script}`, { cwd }).toString('utf-8'));
@@ -41,6 +46,14 @@ execSync(`
 `, { cwd });
 
 console.log('Pushing...');
-execSync(`git push ${config.repository} ${config.branch}`, { cwd });
+try {
+    execSync(`
+        cd ${config.folder} &&
+        git push ${config.repository} ${config.branch} 2>&1
+    `, { cwd });
+} catch(e) {
+    throw Error('Failed to push.')
+}
+
 
 console.log('Deploying to git is finished.');
