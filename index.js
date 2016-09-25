@@ -29,7 +29,7 @@ console.log(`Cloning the repository to "${config.folder}" folder...`);
 try {
     execSync(`git clone -b ${config.branch} ${config.repository} ${config.folder} 2>&1`, { cwd });
 } catch (e) {
-    throw Error('Failed to clone.');
+    throw Error('Failed to clone. Check the repository name, permissions to clone and the absence of "${config.folder}" folder.');
 }
 
 
