@@ -7,7 +7,7 @@ npm install --save-dev deploy-to-git
 
 ## Configuring
 
-Configuration for the tool needs to be placed at ``config.deployToGit`` object inside  ``package.json``. All fields are required.
+Configuration for the tool needs to be placed at ``config.deployToGit`` object inside  ``package.json``.
 
 - ``repository`` - a repository
 - ``branch`` - a branch of the repository where you want to push the artifacts
@@ -15,6 +15,7 @@ Configuration for the tool needs to be placed at ``config.deployToGit`` object i
 - ``script`` - a script which runs the build
 - ``commit`` - commit text
 - ``user`` - commitee information for Git - an object with keys ``name`` and ``email``
+- ``beforePushScript`` (optional) - a command that should be run after a commit (e. g. add needed git tags).
 
 Substrings started with ``$`` are replaced by corresponding environment variables.
 
