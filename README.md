@@ -29,7 +29,7 @@ Let's say you want to deploy artifacts to branch called ``artifacts``. Let's say
 4. Configure ``deploy-to-git``
 
 ```js
-"scipts": {
+"scripts": {
   "deploy": "deploy-to-git",
   "build-my-app": "a-build-script"
 }
