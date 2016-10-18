@@ -11,7 +11,7 @@ const fields = {
     user_name: true,
     user_email: true,
     beforePushScript: false
-}
+};
 const cwd = process.cwd();
 const config = {};
 
@@ -22,7 +22,7 @@ for (const [field, isRequired] of Object.entries(fields)) {
         throw Error(`deployOnGit requires "${field}" field in package config`);
     }
 
-    if(configVar) {
+    if (configVar) {
         config[field] = configVar.replace(/\$([a-zA-Z0-9_]+)/g, (match, envVarName) => {
             const envVar = process.env[envVarName];
 
@@ -57,7 +57,7 @@ execSync(`
     git commit --allow-empty -m "${config.commit}" 2>&1
 `, { cwd });
 
-if(config.beforePushScript) {
+if (config.beforePushScript) {
     console.log('Running beforePushScript...');
 
     try {
@@ -65,7 +65,7 @@ if(config.beforePushScript) {
             cd ${config.folder} &&
             ${config.beforePushScript}
         `, { cwd });
-    } catch(e) {
+    } catch (e) {
         throw Error('Failed to run beforePushScript.');
     }
 }
