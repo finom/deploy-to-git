@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const { execSync } = require('child_process');
+const entries = require('object.entries');
 
 const variablePrefix = 'npm_package_config_deployToGit_';
 const fields = {
@@ -15,7 +16,7 @@ const fields = {
 const cwd = process.cwd();
 const config = {};
 
-for (const [field, isRequired] of Object.entries(fields)) {
+for (const [field, isRequired] of entries(fields)) {
     const configVar = process.env[`${variablePrefix}${field}`];
 
     if (!configVar && isRequired) {
