@@ -1,4 +1,5 @@
-# deploy-to-git [![npm version](https://badge.fury.io/js/deploy-to-git.svg)](https://badge.fury.io/js/deploy-to-git)
+# deploy-to-git [![npm version](https://badge.fury.io/js/deploy-to-git.svg)](https://badge.fury.io/js/deploy-to-git) [![Build Status](https://travis-ci.org/finom/deploy-to-git.svg?branch=master)](https://travis-ci.org/finom/deploy-to-git)
+
 Automatically or manually deploy build artifacts to a Git repository. The tool works awesome with [semantic-release](https://github.com/semantic-release/semantic-release) and any CI service.
 
 ```
