@@ -38,13 +38,8 @@ for (const [field, isRequired] of entries(fields)) {
 
 console.log('Starting deploy to Git...');
 console.log(`Cloning the repository to "${config.folder}" folder...`);
-try {
-    execSync(`git clone -b ${config.branch} ${config.repository} ${config.folder} 2>&1`, { cwd });
-} catch (e) {
-    console.error('Failed to clone. An original error is thrown below.');
-    throw Error(e);
-}
 
+execSync(`git clone -b ${config.branch} ${config.repository} ${config.folder}`, { cwd });
 
 console.log(`Starting script "${config.script}"...`);
 console.log(execSync(`${config.script}`, { cwd }).toString('utf-8'));
@@ -55,33 +50,23 @@ execSync(`
     git config user.email "${config.user_email}" &&
     git config user.name "${config.user_name}" &&
     git add . &&
-    git commit --allow-empty -m "${config.commit}" 2>&1
+    git commit --allow-empty -m "${config.commit}"
 `, { cwd });
 
 if (config.beforePushScript) {
     console.log('Running beforePushScript...');
 
-    try {
-        execSync(`
-            cd ${config.folder} &&
-            ${config.beforePushScript}
-        `, { cwd });
-    } catch (e) {
-        console.error('Failed to run beforePushScript. An original error is thrown below.');
-        throw Error(e);
-    }
+    execSync(`
+        cd ${config.folder} &&
+        ${config.beforePushScript}
+    `, { cwd });
 }
 
 console.log('Pushing...');
-try {
-    execSync(`
-        cd ${config.folder} &&
-        git push --tags ${config.repository} ${config.branch} 2>&1
-    `, { cwd });
-} catch (e) {
-    console.error('Failed to push. An original error is thrown below.');
-    throw Error(e);
-}
 
+execSync(`
+    cd ${config.folder} &&
+    git push --tags ${config.repository} ${config.branch}
+`, { cwd });
 
 console.log('Deploying to git is finished.');
