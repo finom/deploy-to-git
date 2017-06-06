@@ -41,8 +41,8 @@ console.log(`Cloning the repository to "${config.folder}" folder...`);
 try {
     execSync(`git clone -b ${config.branch} ${config.repository} ${config.folder} 2>&1`, { cwd });
 } catch (e) {
-    throw Error('Failed to clone. '
-    + `Check the repository name, permissions to clone and the absence of "${config.folder}" folder.`);
+    console.error('Failed to clone. An original error is thrown below.');
+    throw Error(e);
 }
 
 
@@ -67,7 +67,8 @@ if (config.beforePushScript) {
             ${config.beforePushScript}
         `, { cwd });
     } catch (e) {
-        throw Error('Failed to run beforePushScript.');
+        console.error('Failed to run beforePushScript. An original error is thrown below.');
+        throw Error(e);
     }
 }
 
@@ -78,7 +79,8 @@ try {
         git push --tags ${config.repository} ${config.branch} 2>&1
     `, { cwd });
 } catch (e) {
-    throw Error('Failed to push.');
+    console.error('Failed to push. An original error is thrown below.');
+    throw Error(e);
 }
 
 
