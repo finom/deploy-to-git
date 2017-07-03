@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-const { execSync } = require('child_process');
-const entries = require('object.entries');
+const { execSync } = require(`child_process`);
+const entries = require(`object.entries`);
 
-const variablePrefix = 'npm_package_config_deployToGit_';
+const variablePrefix = `npm_package_config_deployToGit_`;
 const fields = {
     repository: true,
     branch: true,
@@ -17,10 +17,10 @@ const cwd = process.cwd();
 const config = {};
 
 for (const [field, isRequired] of entries(fields)) {
-    const configVar = process.env['${variablePrefix}${field}'];
+    const configVar = process.env[`${variablePrefix}${field}`];
 
     if (!configVar && isRequired) {
-        throw Error('deployOnGit requires "${field}" field in package config');
+        throw Error(`deployOnGit requires "${field}" field in package config`);
     }
 
     if (configVar) {
@@ -28,7 +28,7 @@ for (const [field, isRequired] of entries(fields)) {
             const envVar = process.env[envVarName];
 
             if (!envVar) {
-                throw Error('Environment variable "${envVarName}" presented at string "${configVar}" is missing');
+                throw Error(`Environment variable "${envVarName}" presented at string "${configVar}" is missing`);
             }
 
             return envVar;
@@ -36,34 +36,34 @@ for (const [field, isRequired] of entries(fields)) {
     }
 }
 
-console.log('Starting deploy to Git...');
-console.log('Cloning the repository to "${config.folder}" folder...');
+console.log(`Starting deploy to Git...`);
+console.log(`Cloning the repository to "${config.folder}" folder...`);
 
-execSync('git clone -b ${config.branch} ${config.repository} ${config.folder}', { cwd });
+execSync(`git clone -b ${config.branch} ${config.repository} ${config.folder}`, { cwd });
 
-console.log('Starting script "${config.script}"...');
-console.log(execSync('${config.script}', { cwd }).toString('utf-8'));
+console.log(`Starting script "${config.script}"...`);
+console.log(execSync(`${config.script}`, { cwd }).toString(`utf-8`));
 
-console.log('Configuring and committing...');
+console.log(`Configuring and committing...`);
 execSync(
-    'cd ${config.folder} && ' +
-    'git add . && ' +
-    'git commit --allow-empty -m "${config.commit}"', { cwd });
+    `cd ${config.folder} && ` +
+    `git add . && ` +
+    `git commit --allow-empty -m "${config.commit}"`, { cwd });
 
 if (config.beforePushScript) {
-    console.log('Running beforePushScript...');
+    console.log(`Running beforePushScript...`);
 
     execSync(
-        'cd ${config.folder} && ' + 
-        '${config.beforePushScript}'
+        `cd ${config.folder} && ` + 
+        `${config.beforePushScript}`
         , { cwd });
 }
 
-console.log('Pushing...');
+console.log(`Pushing...`);
 
 execSync(
-    'cd ${config.folder} && ' +
-    'git push --tags ${config.repository} ${config.branch}'
+    `cd ${config.folder} && ` +
+    `git push --tags ${config.repository} ${config.branch}`
     , { cwd });
 
-console.log('Deploying to git is finished.');
+console.log(`Deploying to git is finished.`);
