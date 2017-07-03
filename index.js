@@ -46,7 +46,7 @@ console.log(execSync(`${config.script}`, { cwd }).toString('utf-8'));
 
 console.log('Configuring and committing...');
 execSync(
-    `cd ${config.folder} &&` +
+    `cd ${config.folder} && ` +
     `git add . && ` +
     `git commit --allow-empty -m "${config.commit}"`, { cwd });
 
