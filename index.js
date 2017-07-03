@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-const { execSync } = require('child_process');
-const entries = require('object.entries');
+const { execSync } = require(`child_process`);
+const entries = require(`object.entries`);
 
-const variablePrefix = 'npm_package_config_deployToGit_';
+const variablePrefix = `npm_package_config_deployToGit_`;
 const fields = {
     repository: true,
     branch: true,
@@ -36,37 +36,26 @@ for (const [field, isRequired] of entries(fields)) {
     }
 }
 
-console.log('Starting deploy to Git...');
+console.log(`Starting deploy to Git...`);
 console.log(`Cloning the repository to "${config.folder}" folder...`);
 
 execSync(`git clone -b ${config.branch} ${config.repository} ${config.folder}`, { cwd });
 
 console.log(`Starting script "${config.script}"...`);
-console.log(execSync(`${config.script}`, { cwd }).toString('utf-8'));
+console.log(execSync(`${config.script}`, { cwd }).toString(`utf-8`));
 
-console.log('Configuring and committing...');
-execSync(`
-    cd ${config.folder} &&
-    git config user.email "${config.user_email}" &&
-    git config user.name "${config.user_name}" &&
-    git add . &&
-    git commit --allow-empty -m "${config.commit}"
-`, { cwd });
+console.log(`Configuring and committing...`);
+execSync(`cd ${config.folder} && git add . && git commit --allow-empty -m "${config.commit}"`, { cwd });
 
 if (config.beforePushScript) {
-    console.log('Running beforePushScript...');
+    console.log(`Running beforePushScript...`);
 
-    execSync(`
-        cd ${config.folder} &&
-        ${config.beforePushScript}
-    `, { cwd });
+    execSync(`cd ${config.folder} && ${config.beforePushScript}`, { cwd });
 }
 
-console.log('Pushing...');
+console.log(`Pushing...`);
 
-execSync(`
-    cd ${config.folder} &&
-    git push --tags ${config.repository} ${config.branch}
-`, { cwd });
+execSync(
+    `cd ${config.folder} && git push --tags ${config.repository} ${config.branch}`, { cwd });
 
-console.log('Deploying to git is finished.');
+console.log(`Deploying to git is finished.`);
