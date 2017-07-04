@@ -63,6 +63,8 @@ For more info check out [index.js](https://github.com/finom/deploy-to-git/blob/m
 
 To run it on Travis CI use the following format of ``repository`` field: ``https://$GH_TOKEN@github.com/owner/your-repo.git``.  You can generate GH_TOKEN at Github settings and add it to Travis CI manually. For more info just google it ("generate github token", "add environment variable to Travis") :)
 
+It is generated automatically if you use semantic-release-cli.
+
 ## semantic-release
 
 Just add ``deploy-to-github`` to ``semantic-release`` script.
