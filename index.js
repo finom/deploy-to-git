@@ -45,28 +45,22 @@ console.log(`Starting script "${config.script}"...`);
 console.log(execSync(`${config.script}`, { cwd }).toString('utf-8'));
 
 console.log('Configuring and committing...');
-execSync(`
-    cd ${config.folder} &&
-    git config user.email "${config.user_email}" &&
-    git config user.name "${config.user_name}" &&
-    git add . &&
-    git commit --allow-empty -m "${config.commit}"
-`, { cwd });
+execSync([
+    `cd ${config.folder}`,
+    `git config user.email "${config.user_email}"`,
+    `git config user.name "${config.user_name}"`,
+    'git add .',
+    `git commit --allow-empty -m "${config.commit}"`
+].join('&&'), { cwd });
 
 if (config.beforePushScript) {
     console.log('Running beforePushScript...');
 
-    execSync(`
-        cd ${config.folder} &&
-        ${config.beforePushScript}
-    `, { cwd });
+    execSync(`cd ${config.folder} && ${config.beforePushScript}`, { cwd });
 }
 
 console.log('Pushing...');
 
-execSync(`
-    cd ${config.folder} &&
-    git push --tags ${config.repository} ${config.branch}
-`, { cwd });
+execSync(`cd ${config.folder} && git push --tags ${config.repository} ${config.branch}`, { cwd });
 
 console.log('Deploying to git is finished.');
