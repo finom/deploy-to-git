@@ -39,10 +39,10 @@ for (const [field, isRequired] of entries(fields)) {
 console.log('Starting deploy to Git...');
 console.log(`Cloning the repository to "${config.folder}" folder...`);
 
-execSync(`git clone -b ${config.branch} ${config.repository} ${config.folder}`, { cwd });
+execSync(`git clone -b ${config.branch} ${config.repository} ${config.folder}`, { cwd, stdio: 'inherit' });
 
 console.log(`Starting script "${config.script}"...`);
-console.log(execSync(`${config.script}`, { cwd }).toString('utf-8'));
+console.log(execSync(`${config.script}`, { cwd, stdio: 'inherit' }).toString('utf-8'));
 
 console.log('Configuring and committing...');
 execSync([
@@ -51,16 +51,16 @@ execSync([
     `git config user.name "${config.user_name}"`,
     'git add .',
     `git commit --allow-empty -m "${config.commit}"`
-].join('&&'), { cwd });
+].join('&&'), { cwd, stdio: 'inherit' });
 
 if (config.beforePushScript) {
     console.log('Running beforePushScript...');
 
-    execSync(`cd ${config.folder} && ${config.beforePushScript}`, { cwd });
+    execSync(`cd ${config.folder} && ${config.beforePushScript}`, { cwd, stdio: 'inherit' });
 }
 
 console.log('Pushing...');
 
-execSync(`cd ${config.folder} && git push --tags ${config.repository} ${config.branch}`, { cwd });
+execSync(`cd ${config.folder} && git push --tags ${config.repository} ${config.branch}`, { cwd, stdio: 'inherit' });
 
 console.log('Deploying to git is finished.');
