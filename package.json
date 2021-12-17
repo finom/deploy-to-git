@@ -1,12 +1,12 @@
 {
   "name": "deploy-to-git",
-  "version": "0.0.0-auto",
+  "version": "0.1.5",
   "description": "Automatically deploy build artifacts to a Git repository",
   "bin": "index.js",
   "scripts": {
     "test": "eslint .",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "upgrade": "ncu -a && npm install"
+    "upgrade": "ncu -a && npm install",
+    "patch": "npm version patch && npm publish"
   },
   "config": {
     "validate-commit-msg": {
@@ -51,7 +51,6 @@
     "eslint-plugin-react": "^7.4.0",
     "ghooks": "^2.0.0",
     "npm-check-updates": "^2.12.1",
-    "semantic-release": "^8.0.3",
     "validate-commit-msg": "^2.14.0"
   },
   "dependencies": {

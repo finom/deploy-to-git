@@ -11,7 +11,7 @@ before_script:
   - npm prune
 after_success:
   if ([ "$TRAVIS_PULL_REQUEST" == "false" ]); then
-    eval 'npm run semantic-release';
+    eval 'npm run test';
   fi
 branches:
   except:
