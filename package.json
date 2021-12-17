@@ -1,6 +1,6 @@
 {
   "name": "deploy-to-git",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Automatically deploy build artifacts to a Git repository",
   "bin": "index.js",
   "scripts": {
