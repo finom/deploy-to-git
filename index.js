@@ -42,7 +42,7 @@ console.log(`Cloning the repository to "${config.folder}" folder...`);
 execSync(`git clone -b ${config.branch} ${config.repository} ${config.folder}`, { cwd, stdio: 'inherit' });
 
 console.log(`Starting script "${config.script}"...`);
-console.log(execSync(`${config.script}`, { cwd, stdio: 'inherit' }).toString('utf-8'));
+execSync(`${config.script}`, { cwd, stdio: 'inherit' });
 
 console.log('Configuring and committing...');
 execSync([
