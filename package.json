@@ -54,6 +54,7 @@
     "validate-commit-msg": "^2.14.0"
   },
   "dependencies": {
-    "object.entries": "^1.0.4"
+    "object.entries": "^1.0.4",
+    "yargs": "^17.3.1"
   }
 }
