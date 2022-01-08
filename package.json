@@ -6,7 +6,8 @@
   "scripts": {
     "test": "eslint .",
     "upgrade": "ncu -a && npm install",
-    "patch": "npm version patch && npm publish"
+    "patch": "npm version patch && npm publish",
+    "minor": "npm version minor && npm publish"
   },
   "config": {
     "validate-commit-msg": {
