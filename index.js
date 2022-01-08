@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 const { execSync } = require('child_process');
-const entries = require('object.entries');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
+
 const { argv } = yargs(hideBin(process.argv));
 
 const variablePrefix = 'npm_package_config_deployToGit_';
@@ -19,7 +19,7 @@ const fields = {
 const cwd = process.cwd();
 const config = {};
 
-for (const [field, isRequired] of entries(fields)) {
+for (const [field, isRequired] of Object.entries(fields)) {
     const configVar = argv[field] || process.env[`${variablePrefix}${field}`];
 
     if (!configVar && isRequired) {

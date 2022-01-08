@@ -5,7 +5,7 @@
   "bin": "index.js",
   "scripts": {
     "test": "eslint .",
-    "upgrade": "ncu -a && npm install",
+    "upgrade": "npx npm-check-updates -u && npm install",
     "patch": "npm version patch && npm publish",
     "minor": "npm version minor && npm publish"
   },
@@ -45,17 +45,12 @@
   },
   "homepage": "https://github.com/finom/deploy-to-git#readme",
   "devDependencies": {
-    "eslint": "^4.8.0",
-    "eslint-config-airbnb": "^15.1.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.4.0",
-    "ghooks": "^2.0.0",
-    "npm-check-updates": "^2.12.1",
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "ghooks": "^2.0.4",
     "validate-commit-msg": "^2.14.0"
   },
   "dependencies": {
-    "object.entries": "^1.0.4",
     "yargs": "^17.3.1"
   }
 }
